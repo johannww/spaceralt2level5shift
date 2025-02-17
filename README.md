@@ -50,10 +50,10 @@ Then, create the following script:
 keyboardName=[PUT THE DESIRED NAME FROM EVTEST]
 eventNumber=$(grep -E 'Name|Handlers' /proc/bus/input/devices | grep -A 2 "$keyboardName" | grep event | awk '{print $5}') 
 # 40 is KEY_APOSTROPHE see all keys in /usr/include/linux/input-event-codes.h
-intercept -g /dev/input/${eventNumber} | ~/startup/interception/altSpaceToLevel5 KEY_RIGHTALT 40 | uinput -d /dev/input/${eventNumber}
+intercept -g /dev/input/${eventNumber} | spaceralt2level5shift KEY_RIGHTALT 40 | uinput -d /dev/input/${eventNumber}
 
 # or KEY_RIGHTMETA
-#intercept -g /dev/input/${eventNumber} | ~/startup/interception/altSpaceToLevel5 KEY_RIGHTMETA 40 | uinput -d /dev/input/${eventNumber}
+#intercept -g /dev/input/${eventNumber} | spaceralt2level5shift KEY_RIGHTMETA 40 | uinput -d /dev/input/${eventNumber}
 ```
 
 # Logic
