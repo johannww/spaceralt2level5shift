@@ -72,7 +72,7 @@ stateDiagram-v2
     OneSPC --> BOTHPressed : Got ALT
     OneALT --> BOTHPressed : Got SPC
 
-    OneSPC --> OtherPressedKeyBeforeSpc : Key PRESSED before space
+    OneSPC --> OtherPressedKeyBeforeSpc : Key RELEASED after space PRESS
     OtherPressedKeyBeforeSpc --> PressSpace
     PressSpace --> ReleaseOtherPressed
     ReleaseOtherPressed --> ReleaseSpace : Space released
