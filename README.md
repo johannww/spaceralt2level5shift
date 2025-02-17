@@ -1,6 +1,6 @@
 # Combine space+right alt (or space+right meta) to output a modifier
 
-Spaceralt2level5shift allows you to
+Spaceralt2level5shift allows you to output a modifier like ISO_Level5_Shift when pressing space+right alt (or space+right meta).
 
 # Installation
 
