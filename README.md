@@ -43,11 +43,24 @@ However, sometimes you wish to type modified keys without having to switch your 
 evtest
 ```
 
+Output:
+```out
+/dev/input/event0:      Lid Switch
+/dev/input/event1:      Sleep Button
+/dev/input/event10:     HDA NVidia HDMI/DP,pcm=7
+/dev/input/event11:     HDA NVidia HDMI/DP,pcm=8
+/dev/input/event12:     HDA NVidia HDMI/DP,pcm=9
+/dev/input/event13:     HDA Intel PCH Mic
+/dev/input/event14:     HDA Intel PCH Headphone
+/dev/input/event15:     Logitech USB Receiver
+/dev/input/event16:     Logitech USB Receiver Keyboard
+```
+
 Then, create the following script:
 
 ```bash
 #!/bin/bash
-keyboardName=[PUT THE DESIRED NAME FROM EVTEST]
+keyboardName="Logitech USB Receiver Keyboard" # PUT YOUR DEVICE NAME HERE
 eventNumber=$(grep -E 'Name|Handlers' /proc/bus/input/devices | grep -A 2 "$keyboardName" | grep event | awk '{print $5}') 
 # 40 is KEY_APOSTROPHE see all keys in /usr/include/linux/input-event-codes.h
 intercept -g /dev/input/${eventNumber} | spaceralt2level5shift KEY_RIGHTALT 40 | uinput -d /dev/input/${eventNumber}
