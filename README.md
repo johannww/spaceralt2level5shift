@@ -61,9 +61,6 @@ intercept -g /dev/input/${eventNumber} | spaceralt2level5shift KEY_RIGHTALT 40 |
 The logic can be represented by the follwing state machine:
 
 ```mermaid
----
-title: Simple sample
----
 stateDiagram-v2
     waitSpcOrAlt : Wait SPC or ALT
     [*] --> waitSpcOrAlt
@@ -78,7 +75,7 @@ stateDiagram-v2
     OneSPC --> OtherPressedKeyBeforeSpc : Key PRESSED before space
     OtherPressedKeyBeforeSpc --> PressSpace
     PressSpace --> ReleaseOtherPressed
-    ReleaseOtherPressed --> SPCReleased : Space released
+    ReleaseOtherPressed --> ReleaseSpace : Space released
 
     OneSPC --> KeyPressedAfterSPC : Key PRESSED after space PRESS
     KeyPressedAfterSPC --> PressSpace2
@@ -94,10 +91,9 @@ stateDiagram-v2
     BOTHPressed --> PressDesiredKeyCode
     PressDesiredKeyCode --> HoldDesiredKeyCode
     HoldDesiredKeyCode --> HoldDesiredKeyCode : ALTAndSPCHeld
+    HoldDesiredKeyCode --> PressKeyAfterDesired: Press modified key
+    PressKeyAfterDesired --> HoldDesiredKeyCode
 
-    HoldDesiredKeyCode --> ReleaseAlt : Release ALT
-    HoldDesiredKeyCode --> SPCReleased : Release SPC
-    
-
-
+    HoldDesiredKeyCode --> ReleaseDesiredKeyCode : Release ALT
+    HoldDesiredKeyCode --> ReleaseDesiredKeyCode : Release SPC
 ```
