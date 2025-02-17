@@ -65,17 +65,31 @@ The logic can be represented by the follwing state machine:
 title: Simple sample
 ---
 stateDiagram-v2
-    waitSpcOrAlt : Wait SPC\nor ALT
+    waitSpcOrAlt : Wait SPC or ALT
     [*] --> waitSpcOrAlt
-    
+
+
     waitSpcOrAlt --> OneSPC : Got SPC
     waitSpcOrAlt --> OneALT : Got ALT
 
     OneSPC --> BOTHPressed : Got ALT
     OneALT --> BOTHPressed : Got SPC
 
+    OneSPC --> OtherPressedKeyBeforeSpc : Key PRESSED before space
+    OtherPressedKeyBeforeSpc --> PressSpace
+    PressSpace --> ReleaseOtherPressed
+    ReleaseOtherPressed --> SPCReleased : Space released
+
+    OneSPC --> KeyPressedAfterSPC : Key PRESSED after space PRESS
+    KeyPressedAfterSPC --> PressSpace2
+    PressSpace2 --> PressOtherKey
+    PressOtherKey --> Releases
+
     OneALT --> GotAnotherKey : Another key before SPC
-    GotAnotherKey --> a : Got SPC
+    GotAnotherKey --> HoldAlt
+    HoldAlt --> PressAnotherKey
+    PressAnotherKey --> ReleaseAlt2 : Alt released
+
 
     BOTHPressed --> PressDesiredKeyCode
     PressDesiredKeyCode --> HoldDesiredKeyCode
