@@ -1,6 +1,6 @@
 # Combine space+right alt (or space+right meta) to output a modifier
 
-Spaceralt2level5shift allows you to output a modifier like ISO_Level5_Shift when pressing space+right alt (or space+right meta).
+Spaceralt2level5shift allows you to output a modifier like ISO_Level5_Shift when pressing space+right alt (or space+right meta). Or, you could output Shift instead of ISO_Level5_Shift.
 
 # Installation
 
@@ -63,6 +63,7 @@ Then, create the following script:
 keyboardName="Logitech USB Receiver Keyboard" # PUT YOUR DEVICE NAME HERE
 eventNumber=$(grep -E 'Name|Handlers' /proc/bus/input/devices | grep -A 2 "$keyboardName" | grep event | awk '{print $5}') 
 # 40 is KEY_APOSTROPHE see all keys in /usr/include/linux/input-event-codes.h
+# 42 is KEY_LEFTSHIFT
 intercept -g /dev/input/${eventNumber} | spaceralt2level5shift KEY_RIGHTALT 40 | uinput -d /dev/input/${eventNumber}
 
 # or KEY_RIGHTMETA
