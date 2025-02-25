@@ -72,10 +72,11 @@ intercept -g /dev/input/${eventNumber} | spaceralt2level5shift KEY_RIGHTALT 40 |
 
 To run, you have the easy and the secure options:
 
-1. Easy add your user to the :
+1. Easy: add your user to the **input** group:
 
 ```bash
 sudo usermod -a -G input $USER
+newgrp input
 ./script.sh # run the script above
 ```
 
@@ -84,7 +85,7 @@ through /dev/input/*.
 
 2. Run as a system service: https://www.shubhamdipt.com/blog/how-to-create-a-systemd-service-in-linux/
 
-3. Run with passwordless sudo in group input:
+3. Run with passwordless sudo in **input** group:
 
 ```bash
 sudo chown root:root script.sh # prevent other processes from editing this
