@@ -84,13 +84,19 @@ This is not secure, because any application will have access to whatever you typ
 through /dev/input/*.
 
 2. Run as a system service: https://www.shubhamdipt.com/blog/how-to-create-a-systemd-service-in-linux/
+```bash
+# For security, prevent changes to the files
+sudo chown root:root {script.sh,~/.local/bin/spaceralt2level5shift} # prevent other processes from editing this
+sudo chmod 755 {script.sh,~/.local/bin/spaceralt2level5shift} # prevent other processes from editing this
+sudo chattr +i {script.sh,~/.local/bin/spaceralt2level5shift} # prevent file from being deleted
+```
 
 3. Run with passwordless sudo in **input** group:
 
 ```bash
-sudo chown root:root script.sh # prevent other processes from editing this
-sudo chmod 755 script.sh # prevent other processes from editing this
-sudo chattr +i script.sh # prevent file from being deleted
+sudo chown root:root {script.sh,~/.local/bin/spaceralt2level5shift} # prevent other processes from editing this
+sudo chmod 755 {script.sh,~/.local/bin/spaceralt2level5shift} # prevent other processes from editing this
+sudo chattr +i {script.sh,~/.local/bin/spaceralt2level5shift} # prevent file from being deleted
 
 #adjust your /etc/sudoers
 sudo visudo
