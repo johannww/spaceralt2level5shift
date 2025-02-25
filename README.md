@@ -70,6 +70,35 @@ intercept -g /dev/input/${eventNumber} | spaceralt2level5shift KEY_RIGHTALT 40 |
 #intercept -g /dev/input/${eventNumber} | spaceralt2level5shift KEY_RIGHTMETA 40 | uinput -d /dev/input/${eventNumber}
 ```
 
+To run, you have the easy and the secure options:
+
+1. Easy add your user to the :
+
+```bash
+sudo usermod -a -G input $USER
+./script.sh # run the script above
+```
+
+This is not secure, because any application will have access to whatever you type
+through /dev/input/*.
+
+2. Run as a system service: https://www.shubhamdipt.com/blog/how-to-create-a-systemd-service-in-linux/
+
+3. Run with passwordless sudo in group input:
+
+```bash
+sudo chown root:root script.sh # prevent other processes from editing this
+sudo chmod 755 script.sh # prevent other processes from editing this
+sudo chattr +i script.sh # prevent file from being deleted
+
+#adjust your /etc/sudoers
+sudo visudo
+# and CHANGE your user's line to something like
+YOUR_USER ALL=(ALL:ALL) PASSWD: ALL, NOPASSWD: PATH_TO_YOUR_SCRIPT
+
+sudo -u $USER -g input ./script.sh
+```
+
 # Logic
 
 The logic can be represented by the follwing state machine:
